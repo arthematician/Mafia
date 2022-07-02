@@ -2,6 +2,14 @@ from roles import scenarios
 from player import Player
 
 class Mafia:
+    '''
+    Mafia game class.
+    Stages:
+    1 - Waiting for enough players to register
+    2 - Role assignment.
+    3 - Game running.
+    '''
+
     def __init__(self, scenario):
         assert scenario in {'ranger', 'negotiation'}
         self.scenario = scenario
