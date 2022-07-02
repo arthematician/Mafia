@@ -40,6 +40,7 @@ class Mafia:
             self.enoughPlayersRegistered = True
 
     def assignRoles(self):
+        print('numbe of registered players:', self.nRegisteredPlayers)
         if (not self.enoughPlayersRegistered):
             print('Not enough players registered yet')
             return False
