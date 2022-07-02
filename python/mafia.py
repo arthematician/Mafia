@@ -19,6 +19,7 @@ class Mafia:
         self.newPlayerID = 0
         self.enoughPlayersRegistered = False
         self.updateEnoughPlayersStatus()
+        self.rolesAssigned = False
 
     def addPlayer(self, name):
         id = self.newPlayerID
@@ -38,5 +39,15 @@ class Mafia:
         else:
             self.enoughPlayersRegistered = True
 
+    def assignRoles(self):
+        if (not self.enoughPlayersRegistered):
+            print('Not enough players registered yet')
+            return False
+        print('assigning roles')
+        self.rolesAssigned = True
+
     def run(self):
+        if (not self.rolesAssigned):
+            print('Roles not assigned yet')
+            return False
         print('The game has just started ...')
