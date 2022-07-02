@@ -17,6 +17,8 @@ class Mafia:
         self.nRegisteredPlayers = 0
         self.players = []
         self.newPlayerID = 0
+        self.enoughPlayersRegistered = False
+        self.updateEnoughPlayersStatus()
 
     def addPlayer(self, name):
         id = self.newPlayerID
@@ -24,10 +26,17 @@ class Mafia:
         self.players.append(player)
         self.nRegisteredPlayers = self.nRegisteredPlayers + 1
         self.newPlayerID = self.newPlayerID + 1
+        self.updateEnoughPlayersStatus()
 
     # @classmethod
     # def zero(cls):
     #     return cls(False)
+
+    def updateEnoughPlayersStatus(self):
+        if (self.nRegisteredPlayers < len(scenarios[self.scenario])):
+            self.enoughPlayersRegistered = False
+        else:
+            self.enoughPlayersRegistered = True
 
     def run(self):
         print('The game has just started ...')
