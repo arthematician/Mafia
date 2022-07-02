@@ -13,7 +13,7 @@ class Mafia:
     def __init__(self, scenario):
         assert scenario in {'ranger', 'negotiation'}
         self.scenario = scenario
-        self.nPlayers = len(scenarios[scenario])
+        self.nPlayers = len(scenarios[self.scenario])
         self.nRegisteredPlayers = 0
         self.players = []
         self.newPlayerID = 0
@@ -34,7 +34,7 @@ class Mafia:
     #     return cls(False)
 
     def updateEnoughPlayersStatus(self):
-        if (self.nRegisteredPlayers < len(scenarios[self.scenario])):
+        if (self.nRegisteredPlayers < self.nPlayers):
             self.enoughPlayersRegistered = False
         else:
             self.enoughPlayersRegistered = True
