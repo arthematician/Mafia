@@ -1,5 +1,6 @@
-from roles import scenarios
+from roles import roles, teams, scenarios
 from player import Player
+import random
 
 class Mafia:
     '''
@@ -40,12 +41,21 @@ class Mafia:
             self.enoughPlayersRegistered = True
 
     def assignRoles(self):
-        print('numbe of registered players:', self.nRegisteredPlayers)
+        print('Numbe of registered players:', self.nRegisteredPlayers)
         if (not self.enoughPlayersRegistered):
             print('Not enough players registered yet')
             return False
-        print('assigning roles')
+        print('Assigning roles ...')
+        roleList = [roles[roleid] for roleid in scenarios[self.scenario]]
+        random.shuffle(roleList)
+        for (player, role) in zip(self.players, roleList):
+            # print(player.name, role['name'])
+            player.assignRole(role)
         self.rolesAssigned = True
+
+    def printRoles(self):
+        for player in self.players:
+            print(player.name, player.role['name'])
 
     def run(self):
         if (not self.rolesAssigned):

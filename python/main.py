@@ -19,6 +19,15 @@ def main():
     startTime = float(time.time())
 
     game = Mafia(scenario = args.scenario)
+
+    game.addPlayer('Soheil')
+    # 10 players
+    ...
+
+    game.assignRoles()
+
+    # game.printRoles()
+
     result = game.run()
 
     print ("The game finished in %0.4f seconds" % (time.time() - startTime))
