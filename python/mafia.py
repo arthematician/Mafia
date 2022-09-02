@@ -1,5 +1,5 @@
-from roles import roles, teams, scenarios
-from player import Player
+from Mafia.python.roles import roles, teams, scenarios
+from Mafia.python.player import Player
 import random
 
 class Mafia:
