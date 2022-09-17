@@ -11,10 +11,12 @@ class Mafia:
     3 - Game running.
     '''
 
-    def __init__(self, scenario):
+    def __init__(self, scenario, nPlayers, runnerInfo):
         assert scenario in {'ranger', 'negotiation'}
         self.scenario = scenario
-        self.nPlayers = len(scenarios[self.scenario])
+        # self.nPlayers = len(scenarios[self.scenario])
+        self.nPlayers = nPlayers
+        self.runnerInfo = runnerInfo
         self.nRegisteredPlayers = 0
         self.players = []
         self.newPlayerID = 0
@@ -22,9 +24,9 @@ class Mafia:
         self.updateEnoughPlayersStatus()
         self.rolesAssigned = False
 
-    def addPlayer(self, name):
+    def addPlayer(self, name, userInfo):
         id = self.newPlayerID
-        player = Player(name, id)
+        player = Player(name, id, userInfo)
         self.players.append(player)
         self.nRegisteredPlayers = self.nRegisteredPlayers + 1
         self.newPlayerID = self.newPlayerID + 1
