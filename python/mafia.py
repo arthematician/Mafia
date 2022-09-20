@@ -43,11 +43,11 @@ class Mafia:
             self.enoughPlayersRegistered = True
 
     def assignRoles(self):
-        print('Numbe of registered players:', self.nRegisteredPlayers)
+        # print('Numbe of registered players:', self.nRegisteredPlayers)
         if (not self.enoughPlayersRegistered):
-            print('Not enough players registered yet')
+            # print('Not enough players registered yet')
             return False
-        print('Assigning roles ...')
+        # print('Assigning roles ...')
         roleList = [roles[roleid] for roleid in scenarios[self.scenario]]
         random.shuffle(roleList)
         for (player, role) in zip(self.players, roleList):
