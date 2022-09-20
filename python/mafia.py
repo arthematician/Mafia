@@ -19,10 +19,12 @@ class Mafia:
         self.runnerInfo = runnerInfo
         self.nRegisteredPlayers = 0
         self.players = []
-        self.newPlayerID = 0
+        self.newPlayerID = 1
         self.enoughPlayersRegistered = False
         self.updateEnoughPlayersStatus()
         self.rolesAssigned = False
+        self.gameSetUpMessageText = ""
+        self.gameSetUpMessageID = ""
 
     def addPlayer(self, name, userInfo):
         id = self.newPlayerID
@@ -70,3 +72,9 @@ class Mafia:
             if (id == player.userInfo['id']):
                 return True
         return False
+
+    def setGameSetupUpdateMessageText(self, message):
+        self.gameSetUpMessageText = message
+
+    def setGameSetupUpdateMessageID(self, id):
+        self.gameSetUpMessageID = id
