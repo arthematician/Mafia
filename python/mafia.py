@@ -12,7 +12,7 @@ class Mafia:
     '''
 
     def __init__(self, scenario, nPlayers, runnerInfo):
-        assert scenario in {'ranger', 'negotiation'}
+        assert scenario in {'ranger', 'negotiation', 'darbar'}
         self.scenario = scenario
         # self.nPlayers = len(scenarios[self.scenario])
         self.nPlayers = nPlayers

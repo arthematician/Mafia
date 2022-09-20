@@ -63,6 +63,47 @@ roles = {
         'name': 'Reporter',
         'teamID': '1',
     },
+    # Negotiation, non-repetitive
+    '15': {
+        'name': 'Soltan',
+        'teamID': '2',
+    },
+    '16': {
+        'name': 'Cherik',
+        'teamID': '2',
+    },
+    '17': {
+        'name': 'Mozdoor',
+        'teamID': '2',
+    },
+    '18': {
+        'name': 'Shabgard',
+        'teamID': '1',
+    },
+    '19': {
+        'name': 'Kateb',
+        'teamID': '1',
+    },
+    '20': {
+        'name': 'Mofattesh',
+        'teamID': '1',
+    },
+    '21': {
+        'name': 'Tabib',
+        'teamID': '1',
+    },
+    '22': {
+        'name': 'MohemmatChi',
+        'teamID': '1',
+    },
+    '23': {
+        'name': 'RishSefid',
+        'teamID': '1',
+    },
+    '24': {
+        'name': 'Sarbedar',
+        'teamID': '1',
+    },
 }
 
 scenarios = {
@@ -89,5 +130,17 @@ scenarios = {
         '6',
         '9',
         '9',
+    ],
+    'darbar': [
+        '15',
+        '16',
+        '17',
+        '18',
+        '19',
+        '20',
+        '21',
+        '22',
+        '23',
+        '24',
     ],
 }
