@@ -64,3 +64,9 @@ class Mafia:
             print('Roles not assigned yet')
             return False
         print('The game has just started ...')
+
+    def playerAlreadyRegistered(self, id):
+        for player in self.players:
+            if (id == player.userInfo['id']):
+                return True
+        return False
