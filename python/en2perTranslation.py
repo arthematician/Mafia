@@ -28,4 +28,9 @@ dictionary = {
     'MohemmatChi': 'مهمات چی',
     'RishSefid': 'ریش سفید',
     'Sarbedar': 'سربدار',
+    'hunter': 'شکارچی',
+    'Vakil': 'وکیل',
+    'Bazpors': 'بازپرس',
+    'Hunter': 'شکارچی',
+    'RooyinTan': 'روئین تن',
 }

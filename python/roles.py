@@ -63,7 +63,7 @@ roles = {
         'name': 'Reporter',
         'teamID': '1',
     },
-    # Negotiation, non-repetitive
+    # darbar, non-repetitive
     '15': {
         'name': 'Soltan',
         'teamID': '2',
@@ -102,6 +102,23 @@ roles = {
     },
     '24': {
         'name': 'Sarbedar',
+        'teamID': '1',
+    },
+    # hunter, non-repetitive
+    '25': {
+        'name': 'Vakil',
+        'teamID': '2',
+    },
+    '26': {
+        'name': 'Bazpors',
+        'teamID': '1',
+    },
+    '27': {
+        'name': 'Hunter',
+        'teamID': '1',
+    },
+    '28': {
+        'name': 'RooyinTan',
         'teamID': '1',
     },
 }
@@ -143,4 +160,16 @@ scenarios = {
         '23',
         '24',
     ],
+    'hunter': [
+        '1',
+        '2',
+        '25',
+        '26',
+        '27',
+        '28',
+        '5',
+        '6',
+        '9',
+        '9',
+    ]
 }
