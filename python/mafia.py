@@ -1,6 +1,7 @@
-from Mafia.python.roles import roles, teams, scenarios
 from Mafia.python.player import Player
 import random
+import os
+import json
 
 class Mafia:
     '''
@@ -12,6 +13,23 @@ class Mafia:
     '''
 
     def __init__(self, scenario, nPlayers, runnerInfo):
+
+        scenarios_file = os.path.join(os.getcwd(), 'Mafia', 'python', 'scenarios.json')
+        teams_file = os.path.join(os.getcwd(), 'Mafia', 'python', 'teams.json')
+        roles_file = os.path.join(os.getcwd(), 'Mafia', 'python', 'roles.json')
+        for file in [scenarios_file, teams_file, roles_file]:
+            if not os.path.isfile(file):
+                self.logger.error(f'Cannot read {file} game config file.')
+                # self.clean_exit()
+
+        # read details of the scenarios, teams, roles
+        with open(scenarios_file) as json_file:
+            self.scenarios_configuratoins = json.loads(json_file.read())
+        with open(teams_file) as json_file:
+            self.teams_configuratoins = json.loads(json_file.read())
+        with open(roles_file) as json_file:
+            self.roles_configuratoins = json.loads(json_file.read())
+
         assert scenario in {'ranger', 'negotiation', 'darbar', 'hunter'}
         self.scenario = scenario
         # self.nPlayers = len(scenarios[self.scenario])
@@ -25,6 +43,7 @@ class Mafia:
         self.rolesAssigned = False
         self.gameSetUpMessageText = ""
         self.gameSetUpMessageID = ""
+        self.roles = {}
 
     def addPlayer(self, name, userInfo):
         id = self.newPlayerID
@@ -50,10 +69,11 @@ class Mafia:
             # print('Not enough players registered yet')
             return False
         # print('Assigning roles ...')
-        roleList = [roles[roleid] for roleid in scenarios[self.scenario]]
+        roleList = [self.roles_configuratoins[roleid] for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['1']] + [self.roles_configuratoins[roleid] for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['2']]
         random.shuffle(roleList)
         for (player, role) in zip(self.players, roleList):
-            # print(player.name, role['name'])
+            # print(player.name, role)
+            self.roles[role] = player.id
             player.assignRole(role)
         self.rolesAssigned = True
 
