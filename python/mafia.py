@@ -70,12 +70,12 @@ class Mafia:
             # print('Not enough players registered yet')
             return False
         # print('Assigning roles ...')
-        roleList = [self.roles_configuratoins[roleid] for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['1']] + [self.roles_configuratoins[roleid] for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['2']]
+        roleList = [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['1']] + [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['2']]
         random.shuffle(roleList)
-        for (player, role) in zip(self.players, roleList):
+        for (player, roleid) in zip(self.players, roleList):
             # print(player.name, role)
-            self.roles[role] = player.id
-            player.assignRole(role)
+            self.roles[roleid] = player.id
+            player.assignRole(roleid, self.roles_configuratoins[roleid]["name"], self.roles_configuratoins[roleid]["teamID"])
         self.rolesAssigned = True
 
     def printRoles(self):

@@ -4,9 +4,14 @@ class Player:
         self.name = name
         self.id = id
         self.role = None
+        self.roleid = None
         self.roleAssigned = False
         self.userInfo = userInfo
+        self.roleName = None
+        self.teamID = None
 
-    def assignRole(self, role):
-        self.role = role
+    def assignRole(self, roleid, roleName, teamID):
+        self.roleid = roleid
+        self.roleName = roleName
+        self.teamID = teamID
         self.roleAssigned = True
