@@ -1,3 +1,4 @@
+# from Mafia.python.roles import roles, teams, scenarios
 from Mafia.python.player import Player
 import random
 import os
