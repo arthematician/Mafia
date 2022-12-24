@@ -1,12 +1,15 @@
 {
     "ranger": {
-        "4": "Who would you like to guard?",
-        "3": "Who would you like to capt?",
-        "1": "Who would you like to shot?",
-        "5": "Who's identity would you like to know?",
-        "6": "Who would you like to save?",
-        "7": "Who would you like to fire back?",
-        "8": "Who would you like to give gun to?"
+        "guard": "Who would you like to guard?",
+        "capt": "Who would you like to capt?",
+        "decideToShotOrNato": "Would you like to shot or nato?",
+        "shot": "Who would you like to shot?",
+        "nato": "Who would you like to nato?",
+        "identity": "Who's identity would you like to know?",
+        "heal": "Who would you like to give gun to?",
+        "range": "Who would you like to fire back?",
+        "originalGun": "Who would you like to give gun to?",
+        "fakeGun": "Who would you like to give gun to?"
     },
     "negotiation": {
     },
