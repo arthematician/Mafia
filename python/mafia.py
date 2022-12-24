@@ -13,7 +13,7 @@ class Mafia:
     3 - Game running.
     '''
 
-    def __init__(self, scenario, nPlayers, runnerInfo):
+    def __init__(self, scenario, nPlayers, runnerInfo, abstractor):
 
         scenarios_file = os.path.join(os.getcwd(), 'Mafia', 'python', 'scenarios.json')
         teams_file = os.path.join(os.getcwd(), 'Mafia', 'python', 'teams.json')
@@ -36,6 +36,8 @@ class Mafia:
         # self.nPlayers = len(scenarios[self.scenario])
         self.nPlayers = nPlayers
         self.runnerInfo = runnerInfo
+        # abstractors: 'Terminal', 'Telegram'
+        self.abstractor = abstractor
         self.nRegisteredPlayers = 0
         self.players = []
         self.newPlayerID = 1
@@ -45,6 +47,11 @@ class Mafia:
         self.gameSetUpMessageText = ""
         self.gameSetUpMessageID = ""
         self.roles = {}
+        # self.gameStarted = False
+        # 'preparation', 'blindDay', 'blindNight', 'day', 'night'
+        self.phase = 'preparation'
+        self.dayCount = 0
+        self.nightCount = 0
 
     def addPlayer(self, name, userInfo):
         id = self.newPlayerID
@@ -73,20 +80,31 @@ class Mafia:
         roleList = [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['1']] + [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['2']]
         random.shuffle(roleList)
         for (player, roleid) in zip(self.players, roleList):
-            # print(player.name, role)
+            # print(player.name, self.roles_configuratoins[roleid]["name"])
             self.roles[roleid] = player.id
             player.assignRole(roleid, self.roles_configuratoins[roleid]["name"], self.roles_configuratoins[roleid]["teamID"])
         self.rolesAssigned = True
+        # print("Roles assigned")
 
     def printRoles(self):
         for player in self.players:
-            print(player.name, player.role['name'])
+            if (player.teamID == '1'):
+                roleColor = '🟢 '
+            else:
+                roleColor = '🔴 '
+            print(roleColor, player.name, player.roleName)
 
-    def run(self):
-        if (not self.rolesAssigned):
-            print('Roles not assigned yet')
-            return False
-        print('The game has just started ...')
+    def developPhase(self):
+        if (self.phase == 'preparation'):
+            self.phase = 'blindDay'
+        elif (self.phase == 'blindDay'):
+            self.phase = 'blindNight'
+        elif (self.phase == 'blindNight' or self.phase == 'night'):
+            self.phase = 'day'
+            self.dayCount += 1
+        elif (self.phase == 'day'):
+            self.phase = 'night'
+            self.nightCount += 1
 
     def playerAlreadyRegistered(self, id):
         for player in self.players:
@@ -99,3 +117,13 @@ class Mafia:
 
     def setGameSetupUpdateMessageID(self, id):
         self.gameSetUpMessageID = id
+
+    def roleInGame(self, roleid):
+        exists = False
+        id = None
+        for player in self.players:
+            print(player.id, player.name, player.roleid, player.roleName, player.teamID, player.roleAssigned)
+            if (player.roleid == roleid):
+                exists = True
+                id = player.id
+        return exists, id

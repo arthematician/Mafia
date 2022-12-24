@@ -19,16 +19,244 @@
             }
         },
         "events": {
-            "night": [
-                "capting",
-                "identity",
-                "exit",
-                "gun"
-            ],
+            "preparation": "",
+            "blindDay": "",
+            "blindNight": "",
             "day": [
                 "gun",
                 "voting"
-            ]
+            ],
+            "night": {
+                "order": [
+                    {
+                        "type": "act",
+                        "contact": "guard"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "capt"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "capting"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "decideToShotOrNato"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "decideToShotOrNato"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "shot"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "nato"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "identity"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "identity"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "heal"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "range"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "originalGun"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "fakeGun"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "shot"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "nato"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "gun"
+                    }
+                ],
+                "acts": {
+                    "guard" : {
+                        "contact": [
+                            "4"
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "7": 1,
+                                "10": 2
+                            }
+                        }
+                    },
+                    "capt" : {
+                        "contact": [
+                            "3"
+                        ],
+                        "spam": false,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "decideToShotOrNato": {
+                        "contact": [
+                            "1",
+                            "2"
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "countable",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "shot": {
+                        "contact": [
+                            "1",
+                            "2",
+                            "3"
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "nato": {
+                        "contact": [
+                            "2"
+                        ],
+                        "spam": false,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "countable",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "identity": {
+                        "contact": [
+                            "5"
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "heal": {
+                        "contact": [
+                            "6"
+                        ],
+                        "spam": true,
+                        "actOnSelf": 2,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "7": 1,
+                                "10": 2
+                            }
+                        }
+                    },
+                    "range": {
+                        "contact": [
+                            "7"
+                        ],
+                        "spam": false,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "countable",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "originalGun": {
+                        "contact": [
+                            "8"
+                        ],
+                        "spam": true,
+                        "actOnSelf": 0,
+                        "number": {
+                            "type": "countable",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "fakeGun": {
+                        "contact": [
+                            "8"
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    }
+                },
+                "processes": {
+                    "capting": {
+                        "actor": "capt",
+                        "protector": "guard"
+                    },
+                    "decideToShotOrNato": {
+                        "actor": "decideToShotOrNato"
+                    },
+                    "identity": {
+                        "actor": "identity"
+                    },
+                    "shot": {
+                        "actor": "shot",
+                        "protector": "heal",
+                        "redirector": "range"
+                    },
+                    "nato": {
+                        "actor": "nato"
+                    },
+                    "gun": {
+                        "actor": [
+                            "originalGun",
+                            "fakeGun"
+                        ]
+                    }
+                }
+            }
         }
     },
     "negotiation": {
