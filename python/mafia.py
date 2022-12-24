@@ -78,7 +78,10 @@ class Mafia:
             return False
         # print('Assigning roles ...')
         roleList = [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['1']] + [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['2']]
-        random.shuffle(roleList)
+
+        for i in range(10):
+            random.shuffle(roleList)
+
         for (player, roleid) in zip(self.players, roleList):
             # print(player.name, self.roles_configuratoins[roleid]["name"])
             self.roles[roleid] = player.id
@@ -92,7 +95,7 @@ class Mafia:
                 roleColor = '🟢 '
             else:
                 roleColor = '🔴 '
-            print(roleColor, player.name, player.roleName)
+            print(roleColor + str(player.id) + '- ' + player.name, player.roleName)
 
     def developPhase(self):
         if (self.phase == 'preparation'):
@@ -118,11 +121,15 @@ class Mafia:
     def setGameSetupUpdateMessageID(self, id):
         self.gameSetUpMessageID = id
 
+    def act(self, roleID, actData):
+        for event in self.scenarios_configuratoins[self.scenario]['events'][self.phase]:
+            a = 2
+
     def roleInGame(self, roleid):
         exists = False
         id = None
         for player in self.players:
-            print(player.id, player.name, player.roleid, player.roleName, player.teamID, player.roleAssigned)
+            # print(player.id, player.name, player.roleid, player.roleName, player.teamID, player.roleAssigned)
             if (player.roleid == roleid):
                 exists = True
                 id = player.id
