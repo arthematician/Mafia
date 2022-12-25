@@ -52,6 +52,7 @@ class Mafia:
         self.phase = 'preparation'
         self.dayCount = 0
         self.nightCount = 0
+        self.events = {}
 
     def addPlayer(self, name, userInfo):
         id = self.newPlayerID
@@ -108,6 +109,7 @@ class Mafia:
         elif (self.phase == 'day'):
             self.phase = 'night'
             self.nightCount += 1
+            self.events[self.phase + '_' + str(self.nightCount)] = {}
 
     def playerAlreadyRegistered(self, id):
         for player in self.players:
@@ -121,9 +123,35 @@ class Mafia:
     def setGameSetupUpdateMessageID(self, id):
         self.gameSetUpMessageID = id
 
-    def act(self, roleID, actData):
-        for event in self.scenarios_configuratoins[self.scenario]['events'][self.phase]:
+    def act(self, act, playerID, actData):
+        self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + act] = {
+            'actor': playerID,
+            'actData': actData
+        }
+
+    def process(self, process):
+        # print(self.events)
+        # print(process)
+        if (process == 'capting'):
+            targetedPlayerIDs = []
+            protectedPlayerIDs = []
+
+            # Check if the act of this event's actor is gotten
+            if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']) != None):
+                targetedPlayerIDs = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']]['actData']
+
+            # Check if the act of this event's protector is gotten
+            if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['protector']) != None):
+                protectedPlayerIDs = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['protector']]['actData']
+
+            blockedPlayerIDs = list(set(targetedPlayerIDs) - set(protectedPlayerIDs))
+            self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + process] = {
+                'processData': blockedPlayerIDs
+            }
+        elif (process == 'identity'):
+
             a = 2
+        # print(self.events[])
 
     def roleInGame(self, roleid):
         exists = False
