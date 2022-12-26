@@ -50,11 +50,7 @@
                     },
                     {
                         "type": "act",
-                        "contact": "shot"
-                    },
-                    {
-                        "type": "act",
-                        "contact": "nato"
+                        "contact": "shotOrNato"
                     },
                     {
                         "type": "act",
