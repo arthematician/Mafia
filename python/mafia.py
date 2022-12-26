@@ -4,6 +4,8 @@ import random
 import os
 import json
 
+processLogging = False
+
 class Mafia:
     '''
     Mafia game class.
@@ -130,8 +132,7 @@ class Mafia:
         }
 
     def process(self, process):
-        # print(self.events)
-        # print(process)
+        # print('process', process)
         if (process == 'capting'):
             targetedPlayerIDs = []
             protectedPlayerIDs = []
@@ -146,13 +147,17 @@ class Mafia:
 
             blockedPlayerIDs = list(set(targetedPlayerIDs) - set(protectedPlayerIDs))
 
-            if (blockedPlayerIDs):
-                for playerid in blockedPlayerIDs:
-                    print('player number ' + str(playerid) + ', ' + self.players[playerid-1].roleName + ' of the game, is blocked')
-
             self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + process] = {
                 'processData': blockedPlayerIDs
             }
+
+            if (processLogging):
+                if (blockedPlayerIDs):
+                    for playerid in blockedPlayerIDs:
+                        print('player number ' + str(playerid) + ', ' + self.players[playerid-1].roleName + ' of the game, is blocked')
+                else:
+                    print('no one is blocked')
+
         elif (process == 'decideToShotOrNato'):
 
             decision = None
@@ -164,6 +169,13 @@ class Mafia:
             self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + process] = {
                 'processData': decision
             }
+
+            if (processLogging):
+                if (decision == 1):
+                    d = 'nato'
+                else:
+                    d = 'shot'
+                print('decided to ' + d)
 
         # print(self.events[])
 
