@@ -145,12 +145,26 @@ class Mafia:
                 protectedPlayerIDs = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['protector']]['actData']
 
             blockedPlayerIDs = list(set(targetedPlayerIDs) - set(protectedPlayerIDs))
+
+            if (blockedPlayerIDs):
+                for playerid in blockedPlayerIDs:
+                    print('player number ' + str(playerid) + ', ' + self.players[playerid-1].roleName + ' of the game, is blocked')
+
             self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + process] = {
                 'processData': blockedPlayerIDs
             }
-        elif (process == 'identity'):
+        elif (process == 'decideToShotOrNato'):
 
-            a = 2
+            decide = None
+
+            # Check if the act of this event's actor is gotten
+            if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']) != None):
+                targetedPlayerIDs = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']]['actData']
+
+            self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + process] = {
+                'processData': decide
+            }
+
         # print(self.events[])
 
     def roleInGame(self, roleid):
