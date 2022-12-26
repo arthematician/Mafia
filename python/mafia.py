@@ -155,14 +155,14 @@ class Mafia:
             }
         elif (process == 'decideToShotOrNato'):
 
-            decide = None
+            decision = None
 
             # Check if the act of this event's actor is gotten
             if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']) != None):
-                targetedPlayerIDs = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']]['actData']
+                decision = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']]['actData'][0]
 
             self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + process] = {
-                'processData': decide
+                'processData': decision
             }
 
         # print(self.events[])
