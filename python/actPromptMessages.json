@@ -7,9 +7,11 @@
         "nato": "Who would you like to nato?",
         "identity": "Who's identity would you like to know?",
         "heal": "Who would you like to save?",
-        "range": "Who would you like to fire back?",
-        "originalGun": "Who would you like to give gun to?",
-        "fakeGun": "Who would you like to give gun to?"
+        "range": {
+            "on": "You were shot! Who would you like to fire back?",
+            "off": "You were not shot!"
+        },
+        "gun": "Who would you like to give gun to?"
     },
     "negotiation": {
     },

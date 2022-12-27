@@ -70,23 +70,15 @@
                     },
                     {
                         "type": "act",
-                        "contact": "originalGun"
-                    },
-                    {
-                        "type": "act",
-                        "contact": "fakeGun"
-                    },
-                    {
-                        "type": "process",
-                        "contact": "shot"
-                    },
-                    {
-                        "type": "process",
-                        "contact": "nato"
+                        "contact": "gun"
                     },
                     {
                         "type": "process",
                         "contact": "gun"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "shotOrNato"
                     }
                 ],
                 "acts": {
@@ -199,20 +191,7 @@
                             }
                         }
                     },
-                    "originalGun": {
-                        "contact": [
-                            "8"
-                        ],
-                        "spam": true,
-                        "actOnSelf": 0,
-                        "number": {
-                            "type": "countable",
-                            "n": {
-                                "10": 1
-                            }
-                        }
-                    },
-                    "fakeGun": {
+                    "gun": {
                         "contact": [
                             "8"
                         ],
@@ -221,7 +200,7 @@
                         "number": {
                             "type": "everyNight",
                             "n": {
-                                "10": 1
+                                "10": 2
                             }
                         }
                     }
@@ -246,10 +225,7 @@
                         "actor": "nato"
                     },
                     "gun": {
-                        "actor": [
-                            "originalGun",
-                            "fakeGun"
-                        ]
+                        "actor": "gun"
                     }
                 }
             }

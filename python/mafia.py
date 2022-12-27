@@ -42,6 +42,7 @@ class Mafia:
         self.abstractor = abstractor
         self.nRegisteredPlayers = 0
         self.players = []
+        self.alivePlayers = []
         self.newPlayerID = 1
         self.enoughPlayersRegistered = False
         self.updateEnoughPlayersStatus()
@@ -92,8 +93,13 @@ class Mafia:
         self.rolesAssigned = True
         # print("Roles assigned")
 
-    def printRoles(self):
-        for player in self.players:
+    def printRoles(self, alive):
+        if (alive):
+            players = self.alivePlayers
+        else:
+            players = self.players
+
+        for player in players:
             if (player.teamID == '1'):
                 roleColor = '🟢 '
             else:
@@ -102,6 +108,7 @@ class Mafia:
 
     def developPhase(self):
         if (self.phase == 'preparation'):
+            self.alivePlayers = self.players.copy()
             self.phase = 'blindDay'
         elif (self.phase == 'blindDay'):
             self.phase = 'blindNight'
@@ -157,9 +164,7 @@ class Mafia:
                         print('player number ' + str(playerid) + ', ' + self.players[playerid-1].roleName + ' of the game, is blocked')
                 else:
                     print('no one is blocked')
-
         elif (process == 'decideToShotOrNato'):
-
             decision = None
 
             # Check if the act of this event's actor is gotten
@@ -176,6 +181,73 @@ class Mafia:
                 else:
                     d = 'shot'
                 print('decided to ' + d)
+        elif (process == 'identity'):
+            identityPlayerID = None
+
+            # Check if the act of this event's actor is gotten
+            if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']) != None):
+                identityPlayerID = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']]['actData'][0]
+
+            self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + process] = {
+                'processData': identityPlayerID
+            }
+
+            if (processLogging):
+                if (identityPlayerID):
+                    print('The identity of player number ' + str(identityPlayerID) + ', ' + self.players[identityPlayerID-1].name + ', the ' + self.players[identityPlayerID-1].roleName + ' of the game, was requested')
+        elif (process == 'gun'):
+            gunTargetsPlayerIDs = []
+            # Check if the act of this event's actor is gotten
+            if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']) != None):
+                gunTargetsPlayerIDs = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']]['actData']
+
+            self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + process] = {
+                'processData': gunTargetsPlayerIDs
+            }
+
+            if (processLogging):
+                print('guns were distributed')
+        elif (process == 'shotOrNato'):
+            # Firstly, determine that it is shot or nato
+            decision = None
+            # Check if the act of this event's actor is gotten
+            if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + 'decideToShotOrNato') != None):
+                decision = self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + 'decideToShotOrNato']['processData']
+            if (decision != None):
+                if (decision == 1):
+                    process = 'nato'
+                else:
+                    process = 'shot'
+            else:
+                process = 'shot'
+
+            # Secondly, determine who is going to exit
+            targetedPlayerIDs = []
+            protectedPlayerIDs = []
+
+            # Check if the act of this event's actor is gotten
+            if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']) != None):
+                targetedPlayerIDs = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['actor']]['actData']
+
+            # Check if the act of this event's protector is gotten
+            if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['protector']) != None):
+                protectedPlayerIDs = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes'][process]['protector']]['actData']
+
+            killedPlayerIDs = list(set(targetedPlayerIDs) - set(protectedPlayerIDs))
+
+            self.events[self.phase + '_' + str(self.nightCount)]['process' + '_' + process] = {
+                'processData': killedPlayerIDs
+            }
+
+            for playerid in killedPlayerIDs:
+                self.killPlayerNight(playerid)
+
+            if (processLogging):
+                if (killedPlayerIDs):
+                    for playerid in killedPlayerIDs:
+                        print('player number ' + str(playerid) + ', ' + self.players[playerid-1].roleName + ' of the game, is killed')
+                else:
+                    print('no one is killed')
 
         # print(self.events[])
 
@@ -188,3 +260,27 @@ class Mafia:
                 exists = True
                 id = player.id
         return exists, id
+
+    def rangerIsOn(self):
+        isOn = False
+        shotPlayerIDs = []
+        # Check if the act of shot is gotten
+        if (self.events[self.phase + '_' + str(self.nightCount)].get('act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes']['shot']['actor']) != None):
+            shotPlayerIDs = self.events[self.phase + '_' + str(self.nightCount)]['act' + '_' + self.scenarios_configuratoins[self.scenario]['events'][self.phase]['processes']['shot']['actor']]['actData']
+
+        rangerID = self.role2ID('7')
+
+        if (rangerID in shotPlayerIDs):
+            isOn = True
+
+        return isOn
+
+    def role2ID(self, roleid):
+        id = None
+        for player in self.players:
+            if (player.roleid == roleid):
+                id = player.id
+        return id
+
+    def killPlayerNight(self, playerid):
+        del self.alivePlayers[playerid-1]
