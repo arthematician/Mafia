@@ -3,18 +3,18 @@
         "roles": {
             "10": {
                 "1": [
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                    "9",
-                    "9"
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    9
                 ],
                 "2": [
-                    "1",
-                    "2",
-                    "3"
+                    1,
+                    2,
+                    3
                 ]
             }
         },
@@ -84,7 +84,7 @@
                 "acts": {
                     "guard" : {
                         "contact": [
-                            "4"
+                            4
                         ],
                         "spam": true,
                         "actOnSelf": -1,
@@ -98,7 +98,7 @@
                     },
                     "capt" : {
                         "contact": [
-                            "3"
+                            3
                         ],
                         "spam": false,
                         "actOnSelf": -1,
@@ -111,8 +111,8 @@
                     },
                     "decideToShotOrNato": {
                         "contact": [
-                            "1",
-                            "2"
+                            1,
+                            2
                         ],
                         "spam": true,
                         "actOnSelf": -1,
@@ -125,9 +125,9 @@
                     },
                     "shot": {
                         "contact": [
-                            "1",
-                            "2",
-                            "3"
+                            1,
+                            2,
+                            3
                         ],
                         "spam": true,
                         "actOnSelf": -1,
@@ -140,7 +140,7 @@
                     },
                     "nato": {
                         "contact": [
-                            "2"
+                            2
                         ],
                         "spam": false,
                         "actOnSelf": -1,
@@ -153,7 +153,7 @@
                     },
                     "identity": {
                         "contact": [
-                            "5"
+                            5
                         ],
                         "spam": true,
                         "actOnSelf": -1,
@@ -166,7 +166,7 @@
                     },
                     "heal": {
                         "contact": [
-                            "6"
+                            6
                         ],
                         "spam": true,
                         "actOnSelf": 2,
@@ -180,7 +180,7 @@
                     },
                     "range": {
                         "contact": [
-                            "7"
+                            7
                         ],
                         "spam": false,
                         "actOnSelf": -1,
@@ -193,7 +193,7 @@
                     },
                     "gun": {
                         "contact": [
-                            "8"
+                            8
                         ],
                         "spam": true,
                         "actOnSelf": -1,

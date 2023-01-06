@@ -1,39 +1,39 @@
 {
     "1": {
         "name": "GodFather",
-        "teamID": "2"
+        "teamID": 2
     },
     "2": {
         "name": "Nato",
-        "teamID": "2"
+        "teamID": 2
     },
     "3": {
         "name": "Captor",
-        "teamID": "2"
+        "teamID": 2
     },
     "4": {
         "name": "Guard",
-        "teamID": "1"
+        "teamID": 1
     },
     "5": {
         "name": "Detective",
-        "teamID": "1"
+        "teamID": 1
     },
     "6": {
         "name": "Doctor",
-        "teamID": "1"
+        "teamID": 1
     },
     "7": {
         "name": "Ranger",
-        "teamID": "1"
+        "teamID": 1
     },
     "8": {
         "name": "Musketeer",
-        "teamID": "1"
+        "teamID": 1
     },
     "9": {
         "name": "Citizen",
-        "teamID": "1"
+        "teamID": 1
     },
 
     "10": "Negotiator",

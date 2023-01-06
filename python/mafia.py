@@ -22,7 +22,7 @@ class Mafia:
         roles_file = os.path.join(os.getcwd(), 'Mafia', 'python', 'roles.json')
         for file in [scenarios_file, teams_file, roles_file]:
             if not os.path.isfile(file):
-                self.logger.error(f'Cannot read {file} game config file.')
+                print(f'Cannot read {file} game config file.')
                 # self.clean_exit()
 
         # read details of the scenarios, teams, roles
@@ -81,7 +81,7 @@ class Mafia:
             # print('Not enough players registered yet')
             return False
         # print('Assigning roles ...')
-        roleList = [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['1']] + [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles']['10']['2']]
+        roleList = [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles'][str(self.nPlayers)]['1']] + [roleid for roleid in self.scenarios_configuratoins[self.scenario]['roles'][str(self.nPlayers)]['2']]
 
         for i in range(10):
             random.shuffle(roleList)
@@ -89,7 +89,7 @@ class Mafia:
         for (player, roleid) in zip(self.players, roleList):
             # print(player.name, self.roles_configuratoins[roleid]["name"])
             self.roles[roleid] = player.id
-            player.assignRole(roleid, self.roles_configuratoins[roleid]["name"], self.roles_configuratoins[roleid]["teamID"])
+            player.assignRole(roleid, self.roles_configuratoins[str(roleid)]['name'], self.roles_configuratoins[str(roleid)]['teamID'])
         self.rolesAssigned = True
         # print("Roles assigned")
 
@@ -100,7 +100,7 @@ class Mafia:
             players = self.players
 
         for player in players:
-            if (player.teamID == '1'):
+            if (player.teamID == 1):
                 roleColor = '🟢 '
             else:
                 roleColor = '🔴 '
@@ -284,3 +284,107 @@ class Mafia:
 
     def killPlayerNight(self, playerid):
         del self.alivePlayers[playerid-1]
+
+    def checkFinished(self):
+        return False
+
+    def printResults(self):
+        print('results of the game')
+
+    def identity(self, playerid):
+        identity = False
+        # if self.players[]
+
+    def processEvents(self):
+        # Iterate on the events that should happen in the night(some acts, besides some processes)
+        for event in scenarios[game.scenario]['events'][game.phase]['order']:
+            print(event)
+            ## Here, go for acts
+            if (event['type'] == 'act'):
+                actShouldBeGotten = False
+                playerID = None
+                actIsBlocked = False
+                active = False
+
+                # Determine if act should be gotten, not gotten, or automatically determined
+                ### Not gotten cases
+                # 1- If there is an actor, and determine who it is
+                # 2- If the act is blocked
+                # 3- If the act is available(about nato)
+                # 4- If there are targets, and determine them
+                # 5- If there are any acts left
+                ### Determine
+                # Actor
+                # Targets
+
+                if (event['contact'] == 'shotOrNato'):
+                    decision = None
+                    # Check if the act of this event's actor is gotten
+                    if (game.events[game.phase + '_' + str(game.nightCount)].get('act' + '_' + 'decideToShotOrNato') != None):
+                        decision = game.events[game.phase + '_' + str(game.nightCount)]['process' + '_' + 'decideToShotOrNato']['processData']
+
+                    if (decision != None):
+                        if (decision == 1):
+                            event['contact'] = 'nato'
+                        else:
+                            event['contact'] = 'shot'
+                    else:
+                        event['contact'] = 'shot'
+
+                # Iterate on the roles that can take the responsibility of this act to determine it
+                for roleid in scenarios[game.scenario]['events'][game.phase]['acts'][event['contact']]['contact']:
+                    playerInGame, id = game.roleInGame(roleid)
+                    if (playerInGame):
+                        playerID = id
+                        break
+
+                # Check if the act is blocked
+                if (playerID != None):
+                    # If the act of captor is gotten
+                    if (game.events[game.phase + '_' + str(game.nightCount)].get('process' + '_' + 'capting') != None):
+                        blockedPlayerIDs = game.events[game.phase + '_' + str(game.nightCount)]['process' + '_' + 'capting']['processData']
+                        # If the act is blocked
+                        if (not playerID in blockedPlayerIDs):
+                            actShouldBeGotten = True
+                        else:
+                            actIsBlocked = True
+                    else:
+                        actShouldBeGotten = True
+
+                if (actShouldBeGotten):
+                    number = None
+                    # Determine the number of choices
+                    for n in scenarios[game.scenario]['events'][game.phase]['acts'][event['contact']]['number']['n'].keys():
+                        if (len(game.players) <= int(n)):
+                            number = scenarios[game.scenario]['events'][game.phase]['acts'][event['contact']]['number']['n'][n]
+                            break
+
+                    # Determine if the ranger is on
+                    if (event['contact'] == 'range'):
+                        if (game.rangerIsOn()):
+                            active = True
+                        else:
+                            active = False
+                    else:
+                        active = True
+
+                    if (type(actPromptMessages[game.scenario][event['contact']]) is dict):
+                        if (active):
+                            actPromptMessage = actPromptMessages[game.scenario][event['contact']]['on']
+                        else:
+                            actPromptMessage = actPromptMessages[game.scenario][event['contact']]['off']
+                    else:
+                        actPromptMessage = actPromptMessages[game.scenario][event['contact']]
+
+                    actData = getActPrompt(playerID, actPromptMessage, number, game.players[playerID-1].roleName, blocked=False, active=active)
+                    if (active):
+                        game.act(event['contact'], playerID, actData)
+
+                elif (actIsBlocked):
+                    # print('This act is blocked')
+                    actData = getActPrompt(playerID, actPromptMessage, number, game.players[playerID-1].roleName, blocked=True, active=active)
+            ## And here, go for processes
+            elif (event['type'] == 'process'):
+                # print('process')
+                game.process(event['contact'])
+            print("==================================================")
