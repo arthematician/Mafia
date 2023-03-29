@@ -1,0 +1,316 @@
+{
+    "ranger": {
+        "roles": {
+            "10": {
+                "1": [
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    9
+                ],
+                "2": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        },
+        "events": {
+            "preparation": "",
+            "blindDay": "",
+            "blindNight": "",
+            "day": [
+                "gun",
+                "voting"
+            ],
+            "night": {
+                "order": [
+                    {
+                        "type": "act",
+                        "contact": "guard"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "capt"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "capting"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "decideToShotOrNato"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "decideToShotOrNato"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "shotOrNato"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "identity"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "identity"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "heal"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "range"
+                    },
+                    {
+                        "type": "act",
+                        "contact": "gun"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "gun"
+                    },
+                    {
+                        "type": "process",
+                        "contact": "shotOrNato"
+                    }
+                ],
+                "acts": {
+                    "guard" : {
+                        "contact": [
+                            4
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "7": 1,
+                                "10": 2
+                            }
+                        }
+                    },
+                    "capt" : {
+                        "contact": [
+                            3
+                        ],
+                        "spam": false,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "decideToShotOrNato": {
+                        "contact": [
+                            1,
+                            2
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "countable",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "shot": {
+                        "contact": [
+                            1,
+                            2,
+                            3
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "nato": {
+                        "contact": [
+                            2
+                        ],
+                        "spam": false,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "countable",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "identity": {
+                        "contact": [
+                            5
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "heal": {
+                        "contact": [
+                            6
+                        ],
+                        "spam": true,
+                        "actOnSelf": 2,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "7": 1,
+                                "10": 2
+                            }
+                        }
+                    },
+                    "range": {
+                        "contact": [
+                            7
+                        ],
+                        "spam": false,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "countable",
+                            "n": {
+                                "10": 1
+                            }
+                        }
+                    },
+                    "gun": {
+                        "contact": [
+                            8
+                        ],
+                        "spam": true,
+                        "actOnSelf": -1,
+                        "number": {
+                            "type": "everyNight",
+                            "n": {
+                                "10": 2
+                            }
+                        }
+                    }
+                },
+                "processes": {
+                    "capting": {
+                        "actor": "capt",
+                        "protector": "guard"
+                    },
+                    "decideToShotOrNato": {
+                        "actor": "decideToShotOrNato"
+                    },
+                    "identity": {
+                        "actor": "identity"
+                    },
+                    "shot": {
+                        "actor": "shot",
+                        "protector": "heal",
+                        "redirector": "range"
+                    },
+                    "nato": {
+                        "actor": "nato"
+                    },
+                    "gun": {
+                        "actor": "gun"
+                    }
+                }
+            }
+        }
+    },
+    "negotiation": {
+        "roles": {
+            "1": [
+                "12",
+                "13",
+                "14",
+                "5",
+                "6",
+                "9",
+                "9"
+            ],
+            "2": [
+                "1",
+                "10",
+                "11"
+            ]
+        },
+        "events": {
+            "night": [
+                "negotiation",
+                "identity",
+                "exit"
+            ],
+            "day": [
+                "voting"
+            ]
+        }
+    },
+    "darbar": {
+        "roles": {
+            "1": [
+                "18",
+                "19",
+                "20",
+                "21",
+                "22",
+                "23",
+                "24"
+            ],
+            "2": [
+                "15",
+                "16",
+                "17"
+            ]
+        },
+        "events": {
+            "night": [
+                "identity",
+                "exit"
+            ],
+            "day": [
+                "voting"
+            ]
+        }
+    },
+    "hunter": {
+        "roles": {
+            "1": [
+                "26",
+                "27",
+                "28",
+                "5",
+                "6",
+                "9",
+                "9"
+            ],
+            "2": [
+                "1",
+                "2",
+                "25"
+            ]
+        },
+        "events": {
+            "night": [
+                "identity",
+                "exit"
+            ],
+            "day": [
+                "voting"
+            ]
+        }
+    }
+}

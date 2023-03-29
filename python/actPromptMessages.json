@@ -1,0 +1,22 @@
+{
+    "ranger": {
+        "guard": "Who would you like to guard?",
+        "capt": "Who would you like to capt?",
+        "decideToShotOrNato": "Would you like to shot or nato?",
+        "shot": "Who would you like to shot?",
+        "nato": "Who would you like to nato?",
+        "identity": "Who's identity would you like to know?",
+        "heal": "Who would you like to save?",
+        "range": {
+            "on": "You were shot! Who would you like to fire back?",
+            "off": "You were not shot!"
+        },
+        "gun": "Who would you like to give gun to?"
+    },
+    "negotiation": {
+    },
+    "darbar": {
+    },
+    "hunter": {
+    }
+}
